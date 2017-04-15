@@ -1,0 +1,24 @@
+import { Component } from '@angular/core';
+import { SpotifyService } from '../../services/spotify.service';
+import { Artist } from '../../Artist';
+
+@Component({
+  moduleId: module.id,
+  selector: 'search',
+  templateUrl: `search.component.html`,
+})
+export class SearchComponent  {
+	searchStr:string;
+	searchRes:Artist[];
+
+	constructor(private spotifyService:SpotifyService) {
+
+	}
+
+	searchMusic() {
+		this.spotifyService.searchMusic(this.searchStr).subscribe(res => {
+			console.log(res.artists.items);
+			this.searchRes = res.artists.items;
+		});
+	}
+}
